@@ -15,7 +15,9 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return view('project.index');
+        $stages = Stage::orderBy('order' , 'ASC')->get();
+        $projects = Project::get();
+        return view('project.index', compact('stages','projects') );
     }
 
     /**

@@ -63,23 +63,7 @@
                                                     class="fas fa-arrow-circle-right"></i></a>
                                         </div>
                                     </div>
-                                    <!-- ./col -->
-                                    <!--                      <div class="col-lg-3 col-6">-->
-                                    <!--                        &lt;!&ndash; small box &ndash;&gt;-->
-                                    <!--                        <div class="small-box bg-danger">-->
-                                    <!--                          <div class="inner">-->
-                                    <!--                            <h3>65</h3>-->
 
-                                    <!--                            <p></p>-->
-                                    <!--                          </div>-->
-                                    <!--                          <div class="icon">-->
-                                    <!--                            <i class="mdi mdi-chart-pie"></i>-->
-                                    <!--                          </div>-->
-                                    <!--                          <a href="#" class="small-box-footer">More info <i-->
-                                    <!--                                  class="fas fa-arrow-circle-right"></i></a>-->
-                                    <!--                        </div>-->
-                                    <!--                      </div>-->
-                                    <!-- ./col -->
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-12 d-flex flex-column">
@@ -100,70 +84,43 @@
                                                                 <thead>
                                                                     <tr>
                                                                         <th>Project Name</th>
-                                                                        <th>Analysis</th>
-                                                                        <th>Documentation</th>
-                                                                        <th>Development</th>
-                                                                        <th>Enhancement</th>
-                                                                        <th>Testing</th>
-                                                                        <th>UAT</th>
-                                                                        <th>Completed</th>
-                                                                        <th>Published</th>
+                                                                        @foreach ($stages as $stages)
+                                                                            <th>{{ $stages->name }}</th>
+                                                                        @endforeach
+
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    <tr>
+                                                                    @foreach ($projects as $project)
+                                                                        <tr>
 
-                                                                        <td>
-                                                                            <div class="d-flex ">
-                                                                                <div>
-                                                                                    <h6>Brandon Washington</h6>
-                                                                                    <p>New Project</p>
+                                                                            <td>
+                                                                                <div class="d-flex ">
+                                                                                    <div>
+                                                                                        <h6>{{ $project->name }}</h6>
+                                                                                        <p>{{ $project->type }}</p>
 
+                                                                                    </div>
                                                                                 </div>
-                                                                            </div>
-                                                                        </td>
-                                                                        <td>
-                                                                            <i class="mdi mdi-check"
-                                                                                style="color: green ;font-size: 20px;"></i>
-                                                                        </td>
-                                                                        <td>
-                                                                            <i class="mdi mdi-close"
-                                                                                style="color: red;font-size: 20px;"></i>
-                                                                        </td>
+                                                                            </td>
 
-                                                                        <td>
-                                                                            <i class="mdi mdi-close"
-                                                                                style="color: red;font-size: 20px;"></i>
-                                                                        </td>
-
-                                                                        <td>
-                                                                            <i class="mdi mdi-close"
-                                                                                style="color: red;font-size: 20px;"></i>
-                                                                        </td>
-
-                                                                        <td>
-                                                                            <i class="mdi mdi-close"
-                                                                                style="color: red;font-size: 20px;"></i>
-                                                                        </td>
-
-                                                                        <td>
-                                                                            <i class="mdi mdi-close"
-                                                                                style="color: red;font-size: 20px;"></i>
-                                                                        </td>
-
-                                                                        <td>
-                                                                            <i class="mdi mdi-close"
-                                                                                style="color: red;font-size: 20px;"></i>
-                                                                        </td>
-
-                                                                        <td>
-                                                                            <i class="mdi mdi-close"
-                                                                                style="color: red;font-size: 20px;"></i>
-                                                                        </td>
-
-
-                                                                    </tr>
-
+                                                                            @if ($project->stutas === 'completed')
+                                                                                <td>
+                                                                                    <label
+                                                                                        class="badge badge-success">Completed</label>
+                                                                                </td>
+                                                                            @elseif($project->stutas === 'in_progress')
+                                                                                <td>
+                                                                                    <label class="badge badge-warning">In
+                                                                                        progress</label>
+                                                                                </td>
+                                                                            @else
+                                                                                <td><label
+                                                                                        class="badge badge-danger">Pending</label>
+                                                                                </td>
+                                                                            @endif
+                                                                        </tr>
+                                                                    @endforeach
                                                                 </tbody>
                                                             </table>
                                                         </div>
