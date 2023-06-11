@@ -13,7 +13,7 @@ class Project extends Model
 
     public function stages()
     {
-        return $this->belongsToMany(Stage::class ,'project_stage');
+        return $this->belongsToMany(Stage::class ,'project_stage')->withPivot('start_date', 'end_date', 'status');
     }
 
 }

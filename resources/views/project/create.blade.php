@@ -49,7 +49,8 @@
                 <div class="col-sm-12">
                     <div class="row">
                         @include('inc.errors')
-                        <form method="POST" action=" " class="forms-sample" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('project.store') }}" class="forms-sample"
+                            enctype="multipart/form-data">
                             @csrf
                             <div class="col-lg-12 d-flex flex-column">
                                 <div class="row flex-grow">
@@ -68,7 +69,7 @@
 
                                                 <div class="form-group">
                                                     <label for="exampleInputUsername1">Description</label>
-                                                    <textarea type="text" name="desc" class="form-control" id="exampleInputUsername1" placeholder="Description"></textarea>
+                                                    <textarea type="text" name="disc" class="form-control" id="exampleInputUsername1" placeholder="Description"></textarea>
                                                 </div>
 
 
@@ -103,210 +104,93 @@
 
                                     <div class="col-md-6 grid-margin stretch-card">
                                         <div class="accordion" id="accordionPanelsStayOpenExample">
-                                            <div class="accordion-item  ">
-                                                <h2 class="accordion-header" style="color: black"
-                                                    id="panelsStayOpen-headingOne">
-                                                    <button class="accordion-button" type="button"
-                                                        data-bs-toggle="collapse"
-                                                        data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
-                                                        aria-controls="panelsStayOpen-collapseOne">
-                                                        Analysis
-                                                    </button>
-                                                </h2>
-                                                <div id="panelsStayOpen-collapseOne"
-                                                    class="accordion-collapse collapse show"
-                                                    aria-labelledby="panelsStayOpen-headingOne">
-                                                    <div class="accordion-body">
-                                                        <div class="form-group row">
-                                                            <div class="col">
-                                                                <label>Start Date </label>
-                                                                <input class="form-control" type="date">
-                                                            </div>
-                                                            <div class="col">
-                                                                <label>End Date</label>
-                                                                <input class="form-control" type="date">
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-md-12">
+                                            @foreach ($stages as $stage)
+                                                <div class="accordion-item  ">
+                                                    <h2 class="accordion-header" style="color: black"
+                                                        id="panelsStayOpen-heading{{ $stage->id }}">
+                                                        <button class="accordion-button" type="button"
+                                                            data-bs-toggle="collapse"
+                                                            data-bs-target="#panelsStayOpen-collapse{{ $stage->id }}"
+                                                            aria-expanded="true"
+                                                            aria-controls="panelsStayOpen-collapse{{ $stage->id }}">
+                                                            {{ $stage->name }}
+                                                        </button>
+                                                    </h2>
+                                                    <div id="panelsStayOpen-collapse{{ $stage->id }}"
+                                                        class="accordion-collapse collapse show"
+                                                        aria-labelledby="panelsStayOpen-heading{{ $stage->id }}">
+                                                        <div class="accordion-body">
                                                             <div class="form-group row">
-                                                                <label class="col-sm-12 col-form-label mb-0">Status</label>
-
-                                                                <div class="col-sm-4">
-                                                                    <div class="form-check form-check-success  mt-0">
-                                                                        <label class="form-check-label">
-                                                                            <input type="radio" class="form-check-input"
-                                                                                name="ExampleRadio4" id="ExampleRadio4"
-                                                                                checked="">
-                                                                            completed
-                                                                            <i class="input-helper completed"></i></label>
-                                                                    </div>
+                                                                <div class="col">
+                                                                    <label>Start Date </label>
+                                                                    <input class="form-control" name="start_date"
+                                                                        type="date">
                                                                 </div>
-
-
-                                                                <div class="col-sm-4">
-                                                                    <div class="form-check form-check-warning mt-0">
-                                                                        <label class="form-check-label">
-                                                                            <input type="radio" class="form-check-input"
-                                                                                name="ExampleRadio4" id="ExampleRadio4"
-                                                                                checked="">
-                                                                            In progress
-
-                                                                            <i class="input-helper"></i></label>
-                                                                    </div>
+                                                                <div class="col">
+                                                                    <label>End Date</label>
+                                                                    <input class="form-control" name="end_date"
+                                                                        type="date">
                                                                 </div>
+                                                            </div>
 
-                                                                <div class="col-sm-4">
-                                                                    <div class="form-check form-check-danger  mt-0">
-                                                                        <label class="form-check-label">
-                                                                            <input type="radio" class="form-check-input"
-                                                                                name="ExampleRadio4" id="ExampleRadio4"
-                                                                                checked="">
-                                                                            Pending
-                                                                            <i class="input-helper"></i></label>
+                                                            <div class="col-md-12">
+                                                                <div class="form-group row">
+                                                                    <label
+                                                                        class="col-sm-12 col-form-label mb-0">Status</label>
+
+                                                                    {{-- <div class="col-sm-4">
+                                                                        <div class="form-check form-check-success  mt-0">
+                                                                            <label class="form-check-label">
+                                                                                <input type="radio" value="completed"
+                                                                                    class="form-check-input"
+                                                                                    name="ExampleRadio4" id="ExampleRadio4"
+                                                                                    checked="">
+                                                                                Completed
+                                                                                <i
+                                                                                    class="input-helper completed"></i></label>
+                                                                        </div>
                                                                     </div>
+
+
+                                                                    <div class="col-sm-4">
+                                                                        <div class="form-check form-check-warning mt-0">
+                                                                            <label class="form-check-label">
+                                                                                <input type="radio"
+                                                                                    class="form-check-input"
+                                                                                    name="ExampleRadio4" id="ExampleRadio4"
+                                                                                    checked="" value="in_progress">
+                                                                                In progress
+
+                                                                                <i class="input-helper"></i></label>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-sm-4">
+                                                                        <div class="form-check form-check-danger  mt-0">
+                                                                            <label class="form-check-label">
+                                                                                <input type="radio"
+                                                                                    class="form-check-input"
+                                                                                    name="ExampleRadio4"
+                                                                                    id="ExampleRadio4" checked=""
+                                                                                    value="pending">
+                                                                                Pending
+                                                                                <i class="input-helper"></i></label>
+                                                                        </div>
+                                                                    </div> --}}
+                                                                    <select name="status" class="form-control">
+                                                                        <option value="completed">completed</option>
+                                                                        <option value="in_progress">in_progress</option>
+                                                                        <option value="pending">pending</option>
+                                                                    </select>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="accordion-item">
-                                                <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-                                                    <button class="accordion-button collapsed" type="button"
-                                                        data-bs-toggle="collapse"
-                                                        data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
-                                                        aria-controls="panelsStayOpen-collapseTwo">
-                                                        Accordion Item #2
-                                                    </button>
-                                                </h2>
-                                                <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse"
-                                                    aria-labelledby="panelsStayOpen-headingTwo">
-                                                    <div class="accordion-body">
-                                                        <div class="form-group row">
-                                                            <div class="col">
-                                                                <label>Start Date </label>
-                                                                <input class="form-control" type="date">
-                                                            </div>
-                                                            <div class="col">
-                                                                <label>End Date</label>
-                                                                <input class="form-control" type="date">
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-md-12">
-                                                            <div class="form-group row">
-                                                                <label class="col-sm-12 col-form-label mb-0">Status</label>
-
-                                                                <div class="col-sm-4">
-                                                                    <div class="form-check form-check-success  mt-0">
-                                                                        <label class="form-check-label">
-                                                                            <input type="radio" class="form-check-input"
-                                                                                name="ExampleRadio4" id="ExampleRadio4"
-                                                                                checked="">
-                                                                            completed
-                                                                            <i class="input-helper completed"></i></label>
-                                                                    </div>
-                                                                </div>
-
-
-                                                                <div class="col-sm-4">
-                                                                    <div class="form-check form-check-warning mt-0">
-                                                                        <label class="form-check-label">
-                                                                            <input type="radio" class="form-check-input"
-                                                                                name="ExampleRadio4" id="ExampleRadio4"
-                                                                                checked="">
-                                                                            In progress
-
-                                                                            <i class="input-helper"></i></label>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-sm-4">
-                                                                    <div class="form-check form-check-danger  mt-0">
-                                                                        <label class="form-check-label">
-                                                                            <input type="radio" class="form-check-input"
-                                                                                name="ExampleRadio4" id="ExampleRadio4"
-                                                                                checked="">
-                                                                            Pending
-                                                                            <i class="input-helper"></i></label>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="accordion-item">
-                                                <h2 class="accordion-header" id="panelsStayOpen-headingThree">
-                                                    <button class="accordion-button collapsed" type="button"
-                                                        data-bs-toggle="collapse"
-                                                        data-bs-target="#panelsStayOpen-collapseThree"
-                                                        aria-expanded="false"
-                                                        aria-controls="panelsStayOpen-collapseThree">
-                                                        Accordion Item #3
-                                                    </button>
-                                                </h2>
-                                                <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse"
-                                                    aria-labelledby="panelsStayOpen-headingThree">
-                                                    <div class="accordion-body">
-                                                        <div class="form-group row">
-                                                            <div class="col">
-                                                                <label>Start Date </label>
-                                                                <input class="form-control" type="date">
-                                                            </div>
-                                                            <div class="col">
-                                                                <label>End Date</label>
-                                                                <input class="form-control" type="date">
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-md-12">
-                                                            <div class="form-group row">
-                                                                <label class="col-sm-12 col-form-label mb-0">Status</label>
-
-                                                                <div class="col-sm-4">
-                                                                    <div class="form-check form-check-success  mt-0">
-                                                                        <label class="form-check-label">
-                                                                            <input type="radio" class="form-check-input"
-                                                                                name="ExampleRadio4" id="ExampleRadio4"
-                                                                                checked="">
-                                                                            completed
-                                                                            <i class="input-helper completed"></i></label>
-                                                                    </div>
-                                                                </div>
-
-
-                                                                <div class="col-sm-4">
-                                                                    <div class="form-check form-check-warning mt-0">
-                                                                        <label class="form-check-label">
-                                                                            <input type="radio" class="form-check-input"
-                                                                                name="ExampleRadio4" id="ExampleRadio4"
-                                                                                checked="">
-                                                                            In progress
-
-                                                                            <i class="input-helper"></i></label>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-sm-4">
-                                                                    <div class="form-check form-check-danger  mt-0">
-                                                                        <label class="form-check-label">
-                                                                            <input type="radio" class="form-check-input"
-                                                                                name="ExampleRadio4" id="ExampleRadio4"
-                                                                                checked="">
-                                                                            Pending
-                                                                            <i class="input-helper"></i></label>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            @endforeach
 
                                             <div class="button-container " style="text-align: end">
-                                                <button type="button"
+                                                <button type="submit"
                                                     class="button btn btn-primary"><span>Submit</span></button>
                                             </div>
                                         </div>

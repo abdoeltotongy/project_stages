@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\Models\Stage;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -24,7 +25,8 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('project.create');
+        $stages = Stage::get();
+        return view('project.create' , compact('stages') );
     }
 
     /**
@@ -35,7 +37,28 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Project::create([
+            'name' => $request->name ,
+            'disc'  => $request->disc ,
+            // 'document'  => $request->document ,
+            'type' => $request->type ,
+
+        ]);
+
+        // $project = Project::all();
+
+        // $stage = Stage::all();
+        // $project->stages()->attach($stage->id, ['project_stage' => 	'project_id' ]);
+
+        $projectId = 1;
+        $stageIds =  1  ;
+
+        $project = Project::find($projectId);
+        $project->stages()->attach($stageIds, [
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            'status' => $request->status,
+        ]);
     }
 
     /**

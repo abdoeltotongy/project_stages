@@ -19,8 +19,8 @@ class CreateProjectStageTable extends Migration
             $table->foreignId('stage_id')->constrained();
             $table->string('start_date')->nullable();
             $table->string('end_date')->nullable();
+            $table->enum('status',['completed','in_progress','pending' ])->nullable();
             // $table->boolean('status')->default(false);
-            $table->enum('status',['in_progress','done','not_yet' ])->nullable();
 
 
             $table->timestamps();
